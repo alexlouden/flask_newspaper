@@ -5,6 +5,7 @@ Parses news articles and returns JSON text, summary, keywords and more:
 
   http://parse-newspaper.herokuapp.com/http://www.cnn.com/2013/11/27/justice/tucson-arizona-captive-girls
   
+```json
   {
     published_date: "",
     meta_img: "http://i2.cdn.turner.com/cnn/dam/assets/131130100811-richter-split-1130-story-top.jpg",
@@ -56,3 +57,4 @@ Parses news articles and returns JSON text, summary, keywords and more:
     movies: [ ],
     meta_lang: "en"
   }
+```

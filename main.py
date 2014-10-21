@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.secret_key = "aqPcSglaNdxTVKjYOV31y6boasfkmasf;lkmasflknasgi"
 
 
+def to_ascii(text):
+    return text.encode('ascii', 'ignore')
 
 
 @app.route('/<path:url>')
@@ -30,7 +32,13 @@ def home(url):
     data['authors'] = a.authors
     data['text'] = a.text
 
-    a.nlp()
+    try:
+        a.nlp()
+    except UnicodeDecodeError:
+        # Strip non-ascii characters
+        a.title = to_ascii(a.title)
+        a.text = to_ascii(a.text)
+        a.nlp()
 
     # NLP
     data['summary'] = a.summary

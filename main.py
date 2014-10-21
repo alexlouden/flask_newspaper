@@ -9,12 +9,6 @@ app = Flask(__name__)
 app.secret_key = "aqPcSglaNdxTVKjYOV31y6boasfkmasf;lkmasflknasgi"
 
 
-class SetSerializer(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return json.dumps(list(obj))
-
-        return json.JSONEncoder.default(self, obj)
 
 
 @app.route('/<path:url>')
@@ -41,7 +35,7 @@ def home(url):
     # NLP
     data['summary'] = a.summary
     data['keywords'] = a.keywords
-    data['tags'] = a.tags
+    data['tags'] = list(a.tags)
 
     # Media
     data['top_image'] = a.top_image
@@ -56,7 +50,7 @@ def home(url):
     data['meta_keywords'] = a.meta_keywords
     data['meta_lang'] = a.meta_lang
 
-    return json.dumps(data, cls=SetSerializer)
+    return json.dumps(data)
 
 
 @app.after_request
